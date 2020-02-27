@@ -66,7 +66,7 @@ const printTheHitPoints = (ship) => {
     const shipID = ship.id;
     const shipHP = ship.hitPoints;
     const shipHTML = document.getElementById(shipID);
-    if (ship.hitPoints > 0){
+    if (ship.hitPoints > 0) {
     return shipHTML.innerHTML = shipHP;
     } else {
         return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!";
