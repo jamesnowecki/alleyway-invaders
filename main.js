@@ -9,11 +9,6 @@ class Ship {
         takeDamage() {
             this.hitPoints = this.hitPoints - this.damagePerHit;
         }
-
-        // die() {
-        //     if (this.hitpoints >= 0)
-        //     // THIS THING WILL DIE
-        // }
 }
 
 class AttackShip extends Ship {
@@ -37,7 +32,10 @@ class MotherShip extends Ship {
         }
     
         everythingDiesOnDeath() {
-
+            if(this.hitPoints <= 0) {
+                alert("You slaughtered the peaceful aliens!")
+            
+            }
         }
 }
 
@@ -55,5 +53,35 @@ const as5 = new AttackShip("as5");
 
 const alienArray = [ms1, ds1, ds2, ds3, ds4, ds5, as1, as2, as3, as4, as5];
 
-ds2.takeDamage();
-console.log(ds2.hitPoints);
+const getRandomElement = (shipArray) => {
+    return shipArray[Math.floor(Math.random() * shipArray.length)]
+};
+
+const damageRandomShip = (aliveArray) => {
+    const randomShip = getRandomElement(aliveArray);
+    randomShip.takeDamage();
+};
+
+const printTheHitPoints = (ship) => {
+    const shipID = ship.id;
+    const shipHP = ship.hitPoints
+    const shipHTML = document.getElementById(shipID);
+    if (ship.hitPoints >= 0){
+    return shipHTML.innerHTML = shipHP;
+    } else {
+        return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!"
+    };
+};
+
+const checkIfAlive = (ship) => {
+    if (ship.hitPoints >= 1) {
+        return ship;
+    };
+};
+
+const doDamageOnClick = () => {
+    const alienArrayOfAliveShips = alienArray.filter(checkIfAlive)
+    damageRandomShip(alienArrayOfAliveShips);
+    alienArray.forEach(printTheHitPoints);
+    ms1.everythingDiesOnDeath();
+};
