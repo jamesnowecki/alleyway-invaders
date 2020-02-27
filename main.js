@@ -15,29 +15,29 @@ class AttackShip extends Ship {
     constructor(id) {
         super(id, "Attack Ship", 45, 12);
         this.id = id;
-    }
-}
+    };
+};
 
 class DefenceShip extends Ship {
     constructor(id) {
     super(id, "Defence Ship", 80, 10);
     this.id = id;
-    }
-}
+    };
+};
 
 class MotherShip extends Ship {
     constructor(id) {
         super(id, "Mother Ship", 100, 9);
         this.id = id;
-        }
+        };
     
         everythingDiesOnDeath() {
             if(this.hitPoints <= 0) {
-                alert("You slaughtered the peaceful aliens! They brought only treasures and hope, and were prescribed a hot lead pill");
                 alienArray.forEach(destroyShip);
-            }
-        }
-}
+                alert("You slaughtered the peaceful aliens! They brought only treasures and hope, and were prescribed a hot lead pill");
+            };
+        };
+};
 
 const ms1 = new MotherShip("ms1");
 const ds1 = new DefenceShip("ds1");
@@ -64,12 +64,12 @@ const damageRandomShip = (aliveArray) => {
 
 const printTheHitPoints = (ship) => {
     const shipID = ship.id;
-    const shipHP = ship.hitPoints
+    const shipHP = ship.hitPoints;
     const shipHTML = document.getElementById(shipID);
     if (ship.hitPoints > 0){
     return shipHTML.innerHTML = shipHP;
     } else {
-        return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!"
+        return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!";
     };
 };
 
@@ -80,7 +80,9 @@ const checkIfAlive = (ship) => {
 };
 
 const destroyShip = (ship) => {
-    ship.hitPoints = 0;
+    const shipID = ship.id;
+    const shipHTML = document.getElementById(shipID);
+    return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!";
 }
 
 const doDamageOnClick = () => {
