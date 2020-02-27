@@ -7,42 +7,33 @@ class Ship {
     }
 
         takeDamage() {
-            this.hitpoints = this.hitPoints - damagePerHit;
+            this.hitPoints = this.hitPoints - this.damagePerHit;
         }
 
-        die() {
-            if (this.hitpoints >= 0)
-            // THIS THING WILL DIE
-        }
+        // die() {
+        //     if (this.hitpoints >= 0)
+        //     // THIS THING WILL DIE
+        // }
 }
 
 class AttackShip extends Ship {
     constructor(id) {
-        super(id, shipName, hitPoints, damagePerHit);
+        super(id, "Attack Ship", 45, 12);
         this.id = id;
-        this. shipName = "Attack Ship"
-        this.hitPoints = 45;
-        this.damagePerHit = 12;
     }
 }
 
 class DefenceShip extends Ship {
     constructor(id) {
-    super(id, shipName, hitPoints, damagePerHit);
+    super(id, "Defence Ship", 80, 10);
     this.id = id;
-    this. shipName = "Defence Ship"
-    this.hitPoints = 80;
-    this.damagePerHit = 10;
     }
 }
 
 class MotherShip extends Ship {
     constructor(id) {
-        super(id, shipName, hitPoints, damagePerHit);
+        super(id, "Mother Ship", 100, 9);
         this.id = id;
-        this. shipName = "Mother Ship"
-        this.hitPoints = 100;
-        this.damagePerHit = 9;
         }
     
         everythingDiesOnDeath() {
@@ -52,10 +43,10 @@ class MotherShip extends Ship {
 
 const ms1 = new MotherShip("ms1");
 const ds1 = new DefenceShip("ds1");
-const ds1 = new DefenceShip("ds2");
-const ds1 = new DefenceShip("ds3");
-const ds1 = new DefenceShip("ds4");
-const ds1 = new DefenceShip("ds5");
+const ds2 = new DefenceShip("ds2");
+const ds3 = new DefenceShip("ds3");
+const ds4 = new DefenceShip("ds4");
+const ds5 = new DefenceShip("ds5");
 const as1 = new AttackShip("as1");
 const as2 = new AttackShip("as2");
 const as3 = new AttackShip("as3");
@@ -63,3 +54,6 @@ const as4 = new AttackShip("as4");
 const as5 = new AttackShip("as5");
 
 const alienArray = [ms1, ds1, ds2, ds3, ds4, ds5, as1, as2, as3, as4, as5];
+
+ds2.takeDamage();
+console.log(ds2.hitPoints);
