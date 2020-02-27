@@ -11,7 +11,8 @@ class Ship {
         }
 
         die() {
-
+            if (this.hitpoints >= 0)
+            // THIS THING WILL DIE
         }
 }
 
@@ -48,3 +49,17 @@ class MotherShip extends Ship {
 
         }
 }
+
+const ms1 = new MotherShip("ms1");
+const ds1 = new DefenceShip("ds1");
+const ds1 = new DefenceShip("ds2");
+const ds1 = new DefenceShip("ds3");
+const ds1 = new DefenceShip("ds4");
+const ds1 = new DefenceShip("ds5");
+const as1 = new AttackShip("as1");
+const as2 = new AttackShip("as2");
+const as3 = new AttackShip("as3");
+const as4 = new AttackShip("as4");
+const as5 = new AttackShip("as5");
+
+const alienArray = [ms1, ds1, ds2, ds3, ds4, ds5, as1, as2, as3, as4, as5];
