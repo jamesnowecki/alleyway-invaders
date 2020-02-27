@@ -33,8 +33,8 @@ class MotherShip extends Ship {
     
         everythingDiesOnDeath() {
             if(this.hitPoints <= 0) {
-                alert("You slaughtered the peaceful aliens!")
-            
+                alert("You slaughtered the peaceful aliens! They brought only treasures and hope, and were prescribed a hot lead pill");
+                alienArray.forEach(destroyShip);
             }
         }
 }
@@ -66,7 +66,7 @@ const printTheHitPoints = (ship) => {
     const shipID = ship.id;
     const shipHP = ship.hitPoints
     const shipHTML = document.getElementById(shipID);
-    if (ship.hitPoints >= 0){
+    if (ship.hitPoints > 0){
     return shipHTML.innerHTML = shipHP;
     } else {
         return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!"
@@ -78,6 +78,10 @@ const checkIfAlive = (ship) => {
         return ship;
     };
 };
+
+const destroyShip = (ship) => {
+    ship.hitPoints = 0;
+}
 
 const doDamageOnClick = () => {
     const alienArrayOfAliveShips = alienArray.filter(checkIfAlive)
