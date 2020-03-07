@@ -8,10 +8,6 @@ class Ship {
         takeDamage() {
             this.hitPoints = this.hitPoints - this.damagePerHit;
         }
-
-        die() {
-            this.hitPoints = 0;
-        }
 }
 
 class AttackShip extends Ship {
@@ -33,30 +29,40 @@ class MotherShip extends Ship {
 };
 
 const shipContainer = document.getElementById("prints-ships");
+let noOfMotherShips;
+let noOfAttackShips;
+let noOfDefenceShips;
+let totalShips;
 
-const noOfMotherShips = 1;
-const noOfAttackShips = 5;
-const noOfDefenceShips = 5;
-const totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
+const getNoOfShips = () => {
+    return noOfMotherShips = document.getElementById("mothership-input").value, 
+    noOfAttackShips = document.getElementById("attackship-input").value, 
+    noOfDefenceShips = document.getElementById("defenceship-input").value,
+    totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
+};
+
+// let totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
 
 let alienArray = [];
 
-for (let index = 0; index < totalShips; index++) {
+const populateAlienArray = (noOfMotherShips, ) => {
+    for (let index = 0; index < totalShips; index++) {
 
-    let newMotherShip;
-    let newAttackShip;
-    let newDefenceShip;
+        let newMotherShip;
+        let newAttackShip;
+        let newDefenceShip;
 
-    if (index < noOfMotherShips) {
-        newMotherShip = new MotherShip();
-       alienArray.push(newMotherShip);
-    } else if (index <= noOfAttackShips) {
-        newAttackShip = new AttackShip(); 
-        alienArray.push(newAttackShip)
-    } else if (index <= totalShips) {
-        newDefenceShip = new DefenceShip();
-        alienArray.push(newDefenceShip);
-    }
+        if (index < noOfMotherShips) {
+            newMotherShip = new MotherShip();
+        alienArray.push(newMotherShip);
+        } else if (index <= noOfAttackShips) {
+            newAttackShip = new AttackShip(); 
+            alienArray.push(newAttackShip)
+        } else if (index <= totalShips) {
+            newDefenceShip = new DefenceShip();
+            alienArray.push(newDefenceShip);
+        };
+    };
 }
 
 const printTheHTML = () => {
@@ -72,25 +78,24 @@ const damageRandomShip = () => {
     const randomShip = alienArray[randomShipIndex];
     randomShip.takeDamage();
     if (randomShip.hitPoints <= 0 && randomShip.shipName === "MotherShip") {
-        alienArray.forEach(ship => ship.die());
+        alienArray = [];
         alert("You slaughtered our friends from across the stars");
+        printTheHTML();
     } else if (randomShip.hitPoints <= 0) {
         alienArray.splice(randomShipIndex, 1);
     }
 };
 
-// const everythingDiesOnMSDeath = () => {
-//     // alienArray = [];
-//     alert("You slaughtered the friends from across the stars");
-// };
-
-const checkIfAlive = (ship) => {
-    if (ship.hitPoints >= 1) {
-        return ship;
-    };
-};
-
 const doDamageOnClick = () => {
-    damageRandomShip(alienArray);
     printTheHTML();
+    damageRandomShip(alienArray);
 };
+
+const startGame = () => {
+    console.log(noOfMotherShips);
+    console.log(noOfAttackShips);
+    console.log(noOfDefenceShips);
+    console.log(totalShips);
+    populateAlienArray();
+    printTheHTML();
+}

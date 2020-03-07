@@ -18,8 +18,12 @@
     <h1>Alleyway Invaders</h1>
     <h2>It's NOT Space Invaders</h2>
     <p>Click the button to protect earth by destroying the 'invaders', despite the fact they came in peace...</p>
+    <input type= "number" placeholder= "No. of Mother ships" id= "mothership-input"></input>
+    <input type= "number" placeholder="No. of Attack ships" id= "attackship-input"></input>
+    <input type= "number" placeholder="No. of Defence Ships" id= "defenceship-input"></input>
+    <button onclick="getNoOfShips()">Submit Ships</button>
     <button onclick="doDamageOnClick()">Save the Earth from these untrustworthy neutral aliens!</button>
-    <button onclick="printTheHTML()">Start the game</button>
+    <button onclick="startGame()">Start the game</button>
     <div id="prints-ships"></div>
 </body>
 </html>
