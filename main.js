@@ -24,28 +24,21 @@ class DefenceShip extends Ship {
 
 class MotherShip extends Ship {
     constructor() {
-        super("MotherShip", 1, 9);
+        super("MotherShip", 100, 9);
         };
 };
 
 const shipContainer = document.getElementById("prints-ships");
-let noOfMotherShips;
-let noOfAttackShips;
-let noOfDefenceShips;
-let totalShips;
-
-const getNoOfShips = () => {
-    return noOfMotherShips = document.getElementById("mothership-input").value, 
-    noOfAttackShips = document.getElementById("attackship-input").value, 
-    noOfDefenceShips = document.getElementById("defenceship-input").value,
-    totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
-};
-
-// let totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
 
 let alienArray = [];
 
-const populateAlienArray = (noOfMotherShips, ) => {
+const populateAlienArray = () => {
+
+    const noOfMotherShips = parseInt(document.getElementById("mothership-input").value);
+    const noOfAttackShips = parseInt(document.getElementById("attackship-input").value);
+    const noOfDefenceShips = parseInt(document.getElementById("defenceship-input").value);
+    const totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
+
     for (let index = 0; index < totalShips; index++) {
 
         let newMotherShip;
@@ -63,7 +56,7 @@ const populateAlienArray = (noOfMotherShips, ) => {
             alienArray.push(newDefenceShip);
         };
     };
-}
+};
 
 const printTheHTML = () => {
     shipContainer.innerHTML = "";
@@ -92,10 +85,6 @@ const doDamageOnClick = () => {
 };
 
 const startGame = () => {
-    console.log(noOfMotherShips);
-    console.log(noOfAttackShips);
-    console.log(noOfDefenceShips);
-    console.log(totalShips);
     populateAlienArray();
     printTheHTML();
 }
