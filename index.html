@@ -16,115 +16,104 @@
 <body>
     <h1>Alleyway Invaders</h1>
     <h2>It's NOT Space Invaders</h2>
-    <p>Click the button to protect earth by destroying the invaders, despite the fact they came in peace...</p>
+    <p>Click the button to protect earth by destroying the 'invaders', despite the fact they came in peace...</p>
+    <input type= "number" placeholder= "No. of Mother ships" id= "mothership-input"></input>
+    <input type= "number" placeholder="No. of Attack ships" id= "attackship-input"></input>
+    <input type= "number" placeholder="No. of Defence Ships" id= "defenceship-input"></input>
     <button onclick="doDamageOnClick()">Save the Earth from these untrustworthy neutral aliens!</button>
-    <button onclick="location.reload()">Reset the Game</button>
-    <div>
-        <p>Mother Ship</p><p id= "ms1"></p><p>hp</p>
-        <p>Defence Ship</p><p id= "ds1"></p><p>hp</p>
-        <p>Defence Ship</p><p id= "ds2"></p><p>hp</p>
-        <p>Defence Ship</p><p id= "ds3"></p><p>hp</p>
-        <p>Defence Ship</p><p id= "ds4"></p><p>hp</p>
-        <p>Defence Ship</p><p id= "ds5"></p><p>hp</p>
-        <p>Attack Ship</p><p id= "as1"></p><p>hp</p>
-        <p>Attack Ship</p><p id= "as2"></p><p>hp</p>
-        <p>Attack Ship</p><p id= "as3"></p><p>hp</p>
-        <p>Attack Ship</p><p id= "as4"></p><p>hp</p>
-        <p>Attack Ship</p><p id= "as5"></p><p>hp</p>
+    <button onclick="startGame()">Start the game</button>
+    <div id="prints-ships"></div>
 <script>
     class Ship {
-    constructor(id, shipName, hitPoints, damagePerHit) {
-        this.id = id;
-        this.shipName = shipName;
-        this.hitPoints = hitPoints;
-        this.damagePerHit = damagePerHit;
-    }
-
-        takeDamage() {
-            this.hitPoints = this.hitPoints - this.damagePerHit;
-        }
-}
-
-class AttackShip extends Ship {
-    constructor(id) {
-        super(id, "Attack Ship", 45, 12);
-        this.id = id;
-    };
-};
-
-class DefenceShip extends Ship {
-    constructor(id) {
-    super(id, "Defence Ship", 80, 10);
-    this.id = id;
-    };
-};
-
-class MotherShip extends Ship {
-    constructor(id) {
-        super(id, "Mother Ship", 100, 9);
-        this.id = id;
+        constructor(shipName, hitPoints, damagePerHit) {
+            this.shipName = shipName;
+            this.hitPoints = hitPoints;
+            this.damagePerHit = damagePerHit;
         };
     
-        everythingDiesOnDeath() {
-            if(this.hitPoints <= 0) {
-                alienArray.forEach(destroyShip);
-                alert("You slaughtered the peaceful aliens! They brought only treasures and hope, and were prescribed a hot lead pill");
+            takeDamage() {
+                this.hitPoints = this.hitPoints - this.damagePerHit;
+            };
+    };
+    
+    class AttackShip extends Ship {
+        constructor() {
+            super("AttackShip", 45, 12);
+        };
+    };
+    
+    class DefenceShip extends Ship {
+        constructor() {
+        super("DefenceShip", 80, 10);
+        };
+    };
+    
+    class MotherShip extends Ship {
+        constructor() {
+            super("MotherShip", 100, 9);
+            };
+    };
+    
+    const shipContainer = document.getElementById("prints-ships");
+    
+    let alienArray = [];
+    
+    const populateAlienArray = () => {
+    
+        const noOfMotherShips = parseInt(document.getElementById("mothership-input").value);
+        const noOfAttackShips = parseInt(document.getElementById("attackship-input").value);
+        const noOfDefenceShips = parseInt(document.getElementById("defenceship-input").value);
+        const totalShips = noOfMotherShips + noOfAttackShips + noOfDefenceShips;
+    
+        for (let index = 0; index < totalShips; index++) {
+    
+            let newMotherShip;
+            let newAttackShip;
+            let newDefenceShip;
+    
+            if (index < noOfMotherShips) {
+                newMotherShip = new MotherShip();
+            alienArray.push(newMotherShip);
+            } else if (index <= noOfAttackShips) {
+                newAttackShip = new AttackShip(); 
+                alienArray.push(newAttackShip);
+            } else if (index <= totalShips) {
+                newDefenceShip = new DefenceShip();
+                alienArray.push(newDefenceShip);
             };
         };
-};
-
-const ms1 = new MotherShip("ms1");
-const ds1 = new DefenceShip("ds1");
-const ds2 = new DefenceShip("ds2");
-const ds3 = new DefenceShip("ds3");
-const ds4 = new DefenceShip("ds4");
-const ds5 = new DefenceShip("ds5");
-const as1 = new AttackShip("as1");
-const as2 = new AttackShip("as2");
-const as3 = new AttackShip("as3");
-const as4 = new AttackShip("as4");
-const as5 = new AttackShip("as5");
-
-const alienArray = [ms1, ds1, ds2, ds3, ds4, ds5, as1, as2, as3, as4, as5];
-
-const getRandomElement = (shipArray) => {
-    return shipArray[Math.floor(Math.random() * shipArray.length)]
-};
-
-const damageRandomShip = (aliveArray) => {
-    const randomShip = getRandomElement(aliveArray);
-    randomShip.takeDamage();
-};
-
-const printTheHitPoints = (ship) => {
-    const shipID = ship.id;
-    const shipHP = ship.hitPoints;
-    const shipHTML = document.getElementById(shipID);
-    if (ship.hitPoints > 0){
-    return shipHTML.innerHTML = shipHP;
-    } else {
-        return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!";
     };
-};
-
-const checkIfAlive = (ship) => {
-    if (ship.hitPoints >= 1) {
-        return ship;
+    
+    const printTheHTML = () => {
+        shipContainer.innerHTML = "";
+    
+        alienArray.forEach(ship => {
+            shipContainer.innerHTML += `<p>${ship.shipName}: ${ship.hitPoints}</p>`;
+        });
     };
-};
-
-const destroyShip = (ship) => {
-    const shipID = ship.id;
-    const shipHTML = document.getElementById(shipID);
-    return shipHTML.innerHTML = "FRIEND FROM ACROSS THE STARS DESTROYED!";
-}
-
-const doDamageOnClick = () => {
-    const alienArrayOfAliveShips = alienArray.filter(checkIfAlive)
-    damageRandomShip(alienArrayOfAliveShips);
-    alienArray.forEach(printTheHitPoints);
-    ms1.everythingDiesOnDeath();
-};
+    
+    const damageRandomShip = () => {
+        const randomShipIndex = [Math.floor(Math.random() * alienArray.length)]
+        const randomShip = alienArray[randomShipIndex];
+        randomShip.takeDamage();
+        if (randomShip.hitPoints <= 0 && randomShip.shipName === "MotherShip") {
+            alienArray = [];
+            alert("You slaughtered our friends from across the stars");
+            printTheHTML();
+        } else if (randomShip.hitPoints <= 0) {
+            alienArray.splice(randomShipIndex, 1);
+        };
+    };
+    
+    const doDamageOnClick = () => {
+        printTheHTML();
+        damageRandomShip(alienArray);
+    };
+    
+    const startGame = () => {
+        populateAlienArray();
+        printTheHTML();
+    };
 </script>
 </body>
 </html>
