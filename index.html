@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    </style>
+   <link rel="stylesheet" href="./main.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Alleyway Invaders</h1>
-    <h2>It's NOT Space Invaders</h2>
-    <p>Click the button to protect earth by destroying the 'invaders', despite the fact they came in peace...</p>
-    <input type= "number" placeholder= "No. of Mother ships" id= "mothership-input"></input>
-    <input type= "number" placeholder="No. of Attack ships" id= "attackship-input"></input>
-    <input type= "number" placeholder="No. of Defence Ships" id= "defenceship-input"></input>
-    <button onclick="doDamageOnClick()">Save the Earth from these untrustworthy neutral aliens!</button>
-    <button onclick="startGame()">Start the game</button>
+    <h1>"All we know is that there's still no contact with the colony"</h1>
+    <p>Fill in the reported number of enemies, click the Sulaco to deploy, then click the pulse rifle to defend Hadley's Hope!</p>
+    <div class="inputs">
+        <input type= "number" placeholder= "No. of Queens" id= "mothership-input"></input>
+        <input type= "number" placeholder="No. of Drones" id= "attackship-input"></input>
+        <input type= "number" placeholder="No. of Praetorians" id= "defenceship-input"></input>
+    </div>
+    <div class="buttons">
+        <button onclick="doDamageOnClick()"><img id="pulse-rifle" src="./images/pulse-rifle.png" alt="M4A1 Pulse Rifle"/><p>Get some, marine!</p></button>
+        <button onclick="startGame()"><img id="sulaco" src="./images/sulaco.jpg" alt="U.S.C.M. U.S.S. Sulaco"/><p>Start the game</p></button>
+    </div>
     <div id="prints-ships"></div>
 <script>
     class Ship {
-        constructor(shipName, hitPoints, damagePerHit) {
+        constructor(shipName, hitPoints, damagePerHit, image) {
             this.shipName = shipName;
             this.hitPoints = hitPoints;
             this.damagePerHit = damagePerHit;
+            this.image = image;
         };
     
             takeDamage() {
@@ -38,19 +36,19 @@
     
     class AttackShip extends Ship {
         constructor() {
-            super("AttackShip", 45, 12);
+            super("Drone", 45, 12, "./images/xenomorph.jpg");
         };
     };
     
     class DefenceShip extends Ship {
         constructor() {
-        super("DefenceShip", 80, 10);
+        super("Praetorian", 80, 10, "./images/praetorian.png");
         };
     };
     
     class MotherShip extends Ship {
         constructor() {
-            super("MotherShip", 100, 9);
+            super("Queen", 100, 9, "./images/alien-queen.jpg");
             };
     };
     
@@ -59,6 +57,8 @@
     let alienArray = [];
     
     const populateAlienArray = () => {
+
+        alienArray = [];
     
         const noOfMotherShips = parseInt(document.getElementById("mothership-input").value);
         const noOfAttackShips = parseInt(document.getElementById("attackship-input").value);
@@ -88,7 +88,7 @@
         shipContainer.innerHTML = "";
     
         alienArray.forEach(ship => {
-            shipContainer.innerHTML += `<p>${ship.shipName}: ${ship.hitPoints}</p>`;
+            shipContainer.innerHTML += `<div><img src="${ship.image}" alt="${ship.shipName}"/><p>${ship.shipName}: ${ship.hitPoints}</p></div>`;
         });
     };
     
@@ -96,9 +96,9 @@
         const randomShipIndex = [Math.floor(Math.random() * alienArray.length)]
         const randomShip = alienArray[randomShipIndex];
         randomShip.takeDamage();
-        if (randomShip.hitPoints <= 0 && randomShip.shipName === "MotherShip") {
+        if (randomShip.hitPoints <= 0 && randomShip.shipName === "Queen") {
             alienArray = [];
-            alert("You slaughtered our friends from across the stars");
+            alert("Hadley's Hope is safe!");
             printTheHTML();
         } else if (randomShip.hitPoints <= 0) {
             alienArray.splice(randomShipIndex, 1);

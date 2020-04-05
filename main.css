@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: rgb(126, 221, 250);
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+p {
+    padding-bottom: 20px;
+}
+
+.inputs {
+   text-align: center;
+   padding-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+button {
+    background-color: black;
+    border: none;
+}
+
+button p {
+    color: rgb(126, 221, 250);
+}
+
+#pulse-rifle {
+    width: 200px;
+}
+
+#sulaco {
+    width: 200px;
+}
+
+#prints-ships {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#prints-ships div img {
+    max-width: 10vw;
+}
