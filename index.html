@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <audio id="pulse-rifle" src="./images/pulse-rifle-sound-effect.mp3" preload="auto"></audio>
    <link rel="stylesheet" href="./main.css">
    <link rel='shortcut icon' type='image/x-icon' href='./images/alien-queen.jpg' />
     <title>Alleyway-Invaders</title>
@@ -17,7 +18,7 @@
         <input type= "number" placeholder="No. of Praetorians" id= "defenceship-input"></input>
     </div>
     <div class="buttons">
-        <button onclick="doDamageOnClick()"><img id="pulse-rifle" src="./images/pulse-rifle.png" alt="M4A1 Pulse Rifle"/><p>Get some, marine!</p></button>
+        <button onclick="doDamageOnClick()" onclick="document.getElementById('pulse-rifle').play();"><img id="pulse-rifle" src="./images/pulse-rifle.png" alt="M4A1 Pulse Rifle"/><p>Get some, marine!</p></button>
         <button onclick="startGame()"><img id="sulaco" src="./images/sulaco.jpg" alt="U.S.C.M. U.S.S. Sulaco"/><p>Start the game</p></button>
     </div>
     <div id="prints-ships"></div>
@@ -109,6 +110,7 @@
     const doDamageOnClick = () => {
         printTheHTML();
         damageRandomShip(alienArray);
+        document.getElementById('pulse-rifle').play();
     };
     
     const startGame = () => {
